@@ -1,0 +1,40 @@
+/* AppShell Component Styles */
+.container {
+  @apply h-screen w-screen bg-gray-50 flex flex-col overflow-hidden;
+}
+
+.header {
+  @apply bg-blue-900 text-white px-6 py-4 shadow-sm flex-shrink-0 w-full;
+}
+
+.headerContent {
+  @apply flex items-center justify-between w-full;
+}
+
+.logo {
+  @apply flex items-center space-x-4;
+}
+
+.logoTitle {
+  @apply text-xl font-semibold;
+}
+
+.userSection {
+  @apply flex items-center space-x-4;
+}
+
+.userName {
+  @apply text-sm;
+}
+
+.avatar {
+  @apply w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center;
+}
+
+.avatarText {
+  @apply text-sm text-gray-700;
+}
+
+.main {
+  @apply flex-1 px-6 py-6 overflow-hidden;
+}
