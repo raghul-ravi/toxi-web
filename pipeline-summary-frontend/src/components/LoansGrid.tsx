@@ -4,7 +4,7 @@ import { loansApi } from '../services/api';
 
 import type { ColumnDef, Loan } from '../types/types';
 
-interface EnhancedLoansGridProps {
+interface LoansGridProps {
   statusTab: string;
   onAssignClick: (selectedLoanIds: string[]) => void;
   columns: ColumnDef[];
@@ -18,7 +18,7 @@ interface SortState {
   direction: SortDirection;
 }
 
-export const EnhancedLoansGrid = ({ statusTab, onAssignClick, columns, visibleColumnIds }: EnhancedLoansGridProps) => {
+export const LoansGrid = ({ statusTab, onAssignClick, columns, visibleColumnIds }: LoansGridProps) => {
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [sortState, setSortState] = useState<SortState>({ columnId: null, direction: null });
   

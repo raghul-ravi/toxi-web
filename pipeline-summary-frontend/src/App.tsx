@@ -1,11 +1,11 @@
 import { AppShell } from './components/AppShell';
-import { SimplePipelinePage } from './components/SimplePipelinePage';
+import { LoanPipelineView } from './components/LoanPipelineView';
 import './styles/App.css';
 
 function App() {
   return (
     <AppShell>
-      <SimplePipelinePage />
+      <LoanPipelineView />
     </AppShell>
   );
 }

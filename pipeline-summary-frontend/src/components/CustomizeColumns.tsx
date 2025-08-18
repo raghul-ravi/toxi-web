@@ -1,19 +1,19 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Search, List } from 'lucide-react';
-import styles from '../styles/components/FunctionalCustomizeColumns.module.css';
+import styles from '../styles/components/CustomizeColumns.module.css';
 import type { ColumnDef } from '../types/types';
 
-interface FunctionalCustomizeColumnsProps {
+interface CustomizeColumnsProps {
   columns: ColumnDef[];
   visibleColumnIds: string[];
   onChange: (visibleIds: string[]) => void;
 }
 
-export const FunctionalCustomizeColumns = ({
+export const CustomizeColumns = ({
   columns,
   visibleColumnIds,
   onChange,
-}: FunctionalCustomizeColumnsProps) => {
+}: CustomizeColumnsProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);

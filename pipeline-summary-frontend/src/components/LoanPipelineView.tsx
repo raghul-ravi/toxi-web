@@ -4,9 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import { Home, Users } from 'lucide-react';
 import { PageTitle } from './PageTitle';
 import { StatusTabs } from './StatusTabs';
-import { EnhancedLoansGrid } from './EnhancedLoansGrid';
-import { SimpleAssignModal } from './SimpleAssignModal';
-import { FunctionalCustomizeColumns } from './FunctionalCustomizeColumns';
+import { LoansGrid } from './LoansGrid';
+import { UserAssignModal } from './UserAssignModal';
+import { CustomizeColumns } from './CustomizeColumns';
 import { ToastProvider } from './ToastHost';
 import { useToast } from '../hooks/useToast';
 import { loansApi } from '../services/api';
@@ -25,7 +25,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const SimplePipelinePageContent = () => {
+const LoanPipelineViewContent = () => {
   const [statusTab, setStatusTab] = useState('unassigned');
   const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
   const [selectedLoanIds, setSelectedLoanIds] = useState<string[]>([]);
@@ -107,7 +107,7 @@ const SimplePipelinePageContent = () => {
         </div>
         
         <div className="flex items-center space-x-4">
-          <FunctionalCustomizeColumns
+          <CustomizeColumns
             columns={LOAN_COLUMNS}
             visibleColumnIds={visibleColumnIds}
             onChange={setVisibleColumnIds}
@@ -116,7 +116,7 @@ const SimplePipelinePageContent = () => {
       </div>
       
       <div className="flex-1 flex flex-col min-h-0">
-        <EnhancedLoansGrid 
+        <LoansGrid 
           statusTab={statusTab} 
           onAssignClick={handleAssignClick}
           columns={LOAN_COLUMNS}
@@ -124,7 +124,7 @@ const SimplePipelinePageContent = () => {
         />
       </div>
 
-      <SimpleAssignModal
+      <UserAssignModal
         isOpen={isAssignModalOpen}
         selectedLoanIds={selectedLoanIds}
         onClose={handleModalClose}
@@ -135,11 +135,11 @@ const SimplePipelinePageContent = () => {
   );
 };
 
-export const SimplePipelinePage = () => {
+export const LoanPipelineView = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ToastProvider>
-        <SimplePipelinePageContent />
+        <LoanPipelineViewContent />
       </ToastProvider>
     </QueryClientProvider>
   );

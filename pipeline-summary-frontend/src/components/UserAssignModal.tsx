@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { processorsApi } from '../services/api';
 import type { Processor } from '../types/types';
 
-interface SimpleAssignModalProps {
+interface UserAssignModalProps {
   isOpen: boolean;
   selectedLoanIds: string[];
   onClose: () => void;
@@ -12,13 +12,13 @@ interface SimpleAssignModalProps {
   isAssigning?: boolean;
 }
 
-export const SimpleAssignModal = ({
+export const UserAssignModal = ({
   isOpen,
   selectedLoanIds,
   onClose,
   onAssign,
   isAssigning = false,
-}: SimpleAssignModalProps) => {
+}: UserAssignModalProps) => {
   const [selectedProcessorId, setSelectedProcessorId] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 

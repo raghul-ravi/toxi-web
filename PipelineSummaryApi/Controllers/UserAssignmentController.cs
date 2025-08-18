@@ -6,11 +6,11 @@ namespace PipelineSummaryApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ProcessorsController : ControllerBase
+public class UserAssignmentController : ControllerBase
 {
     private readonly LoanService _loanService;
 
-    public ProcessorsController(LoanService loanService)
+    public UserAssignmentController(LoanService loanService)
     {
         _loanService = loanService;
     }

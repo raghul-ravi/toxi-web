@@ -8,10 +8,10 @@ This folder contains all CSS files for the Pipeline Summary application.
 styles/
 ├── components/           # Component-specific CSS modules
 │   ├── AppShell.module.css
-│   ├── EnhancedLoansGrid.module.css
-│   ├── FunctionalCustomizeColumns.module.css
-│   ├── SimpleAssignModal.module.css
-│   ├── SimplePipelinePage.module.css
+│   ├── LoansGrid.module.css
+│   ├── CustomizeColumns.module.css
+│   ├── UserAssignModal.module.css
+│   ├── LoanPipelineView.module.css
 │   ├── StatusTabs.module.css
 │   ├── PageTitle.module.css
 │   └── ToastHost.module.css
