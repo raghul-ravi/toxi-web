@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { loansApi } from '../services/api';
 
-import type { ColumnDef } from '../types/types';
+import type { ColumnDef, Loan } from '../types/types';
 
 interface EnhancedLoansGridProps {
   statusTab: string;
@@ -31,7 +31,7 @@ export const EnhancedLoansGrid = ({ statusTab, onAssignClick, columns, visibleCo
   const sortedLoans = [...rawLoans].sort((a, b) => {
     if (!sortState.columnId || !sortState.direction) return 0;
     
-    const getValue = (loan: any, columnId: string) => {
+    const getValue = (loan: Loan, columnId: string) => {
       switch (columnId) {
         case 'loanNumber':
           return loan.loanNumber || '';
@@ -120,7 +120,7 @@ export const EnhancedLoansGrid = ({ statusTab, onAssignClick, columns, visibleCo
     return null;
   };
 
-  const renderCellValue = (loan: any, columnId: string) => {
+  const renderCellValue = (loan: Loan, columnId: string) => {
     switch (columnId) {
       case 'loanNumber':
         return loan.loanNumber;

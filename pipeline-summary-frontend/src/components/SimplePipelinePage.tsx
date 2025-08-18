@@ -7,7 +7,8 @@ import { StatusTabs } from './StatusTabs';
 import { EnhancedLoansGrid } from './EnhancedLoansGrid';
 import { SimpleAssignModal } from './SimpleAssignModal';
 import { FunctionalCustomizeColumns } from './FunctionalCustomizeColumns';
-import { ToastProvider, useToast } from './ToastHost';
+import { ToastProvider } from './ToastHost';
+import { useToast } from '../hooks/useToast';
 import { loansApi } from '../services/api';
 import { useAssignLoansMutation } from '../hooks/useAssignLoansMutation';
 import { useProcessorsQuery } from '../hooks/useProcessorsQuery';
@@ -66,7 +67,7 @@ const SimplePipelinePageContent = () => {
       
       setIsAssignModalOpen(false);
       setSelectedLoanIds([]);
-    } catch (error) {
+    } catch {
       showToast('Failed to assign loans', 'error');
     }
   };
