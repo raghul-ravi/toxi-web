@@ -6,66 +6,73 @@ This folder contains all CSS files for the Pipeline Summary application.
 
 ```
 styles/
-├── components/           # Component-specific CSS modules
-│   ├── AppShell.module.css
-│   ├── LoansGrid.module.css
-│   ├── CustomizeColumns.module.css
-│   ├── UserAssignModal.module.css
-│   ├── LoanPipelineView.module.css
-│   ├── StatusTabs.module.css
-│   ├── PageTitle.module.css
-│   └── ToastHost.module.css
+├── components/           # Component-specific CSS files
+│   ├── AppShell.css
+│   ├── LoansGrid.css
+│   ├── CustomizeColumns.css
+│   ├── UserAssignModal.css
+│   ├── LoanPipelineView.css
+│   ├── StatusTabs.css
+│   ├── PageTitle.css
+│   └── ToastHost.css
 ├── App.css              # Global app styles and resets
-├── index.css            # Tailwind imports and global styles
+├── index.css            # Global styles
 └── README.md            # This file
 ```
 
 ## Approach
 
-This project uses a hybrid styling approach:
+This project uses regular CSS files with semantic class names for component-specific styling:
 
-1. **Tailwind CSS Utilities**: Primary styling method using utility classes
-2. **CSS Modules**: Component-specific styles for better organization and encapsulation
-3. **Global Styles**: Base styles and resets in App.css and index.css
+1. **Component CSS Files**: Each component has its own CSS file with descriptive class names
+2. **Global Styles**: Base styles and CSS reset in index.css
+3. **No CSS Frameworks**: Pure CSS without any utility frameworks like Tailwind
+4. **Semantic Class Names**: Regular CSS classes for simplicity and maintainability
 
-## CSS Modules
+## Component Styles
 
-Each component has its own CSS module file that:
-- Uses Tailwind's `@apply` directive to create reusable component classes
+Each component has its own CSS file that:
+- Uses regular CSS properties instead of utility classes
 - Provides better organization and maintainability
-- Ensures style encapsulation and prevents naming conflicts
-- Makes components more readable by reducing long className strings
+- Uses semantic, descriptive class names with component prefixes
+- Makes components more readable and self-contained
 
 ## Usage Example
 
 ```tsx
 // Component file
-import styles from '../styles/components/MyComponent.module.css';
+import '../styles/components/MyComponent.css';
 
 export const MyComponent = () => {
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Title</h1>
+    <div className="my-component-container">
+      <h1 className="my-component-title">Title</h1>
     </div>
   );
 };
 ```
 
 ```css
-/* MyComponent.module.css */
-.container {
-  @apply flex flex-col space-y-4 p-6;
+/* MyComponent.css */
+.my-component-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
 }
 
-.title {
-  @apply text-2xl font-bold text-gray-900;
+.my-component-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
 }
 ```
 
 ## Benefits
 
-- **Cleaner JSX**: Shorter, more semantic className attributes
+- **Pure CSS**: No utility framework dependencies
 - **Better Organization**: Styles are co-located with their components
 - **Maintainability**: Easy to find and update component-specific styles
-- **Type Safety**: CSS modules provide autocompletion and error checking
-- **Performance**: CSS modules are optimized during build time
+- **Semantic Class Names**: Descriptive class names that explain their purpose
+- **Standard CSS**: Works everywhere without build dependencies
+- **Performance**: Smaller bundle size without unused utility classes

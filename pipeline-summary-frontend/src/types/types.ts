@@ -43,7 +43,3 @@ export interface AssignLoansRequest {
   processorId: string;
 }
 
-export interface KpiItem {
-  label: string;
-  value: number;
-}

@@ -1,20 +1,17 @@
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useQuery } from '@tanstack/react-query';
-import { Home, Users } from 'lucide-react';
-import { PageTitle } from './PageTitle';
+import { PipelineViewTitle } from './PipelineViewTitle';
 import { StatusTabs } from './StatusTabs';
 import { LoansGrid } from './LoansGrid';
 import { UserAssignModal } from './UserAssignModal';
 import { CustomizeColumns } from './CustomizeColumns';
 import { ToastProvider } from './ToastHost';
 import { useToast } from '../hooks/useToast';
-import { loansApi } from '../services/api';
 import { useAssignLoansMutation } from '../hooks/useAssignLoansMutation';
 import { useProcessorsQuery } from '../hooks/useProcessorsQuery';
 import { useColumnVisibilityManager } from '../hooks/useColumnVisibilityManager';
 import { LOAN_COLUMNS } from '../constants/columns';
-import type { KpiItem } from '../types/types';
+import '../styles/components/LoanPipelineView.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,18 +31,9 @@ const LoanPipelineViewContent = () => {
   const assignMutation = useAssignLoansMutation();
   const { visibleColumnIds, setVisibleColumnIds } = useColumnVisibilityManager(LOAN_COLUMNS);
 
-  const { data: kpis = {} } = useQuery({
-    queryKey: ['kpis'],
-    queryFn: loansApi.getKpis,
-    staleTime: 60000,
-  });
-
   const { data: processors = [] } = useProcessorsQuery();
 
-  const kpiItems: KpiItem[] = Object.entries(kpis).map(([label, value]) => ({
-    label,
-    value,
-  }));
+  const hasSelectedLoans = selectedLoanIds.length > 0;
 
   const handleAssignClick = (loanIds: string[]) => {
     setSelectedLoanIds(loanIds);
@@ -77,50 +65,58 @@ const LoanPipelineViewContent = () => {
     setSelectedLoanIds([]);
   };
 
+  const handleCancelSelection = () => {
+    setSelectedLoanIds([]);
+  };
+
   return (
-    <div className="h-full w-full flex flex-col space-y-6">
-      <PageTitle title="Pipeline Summary" />
+    <div className="loan-pipeline-container">
+      <PipelineViewTitle title="Pipeline Summary" />
       
-      <StatusTabs value={statusTab} onChange={setStatusTab} />
-      
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          {/* KPI Chips */}
-          {kpiItems.length > 0 && (
-            <>
-              {kpiItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center space-x-2 bg-gray-100 px-3 py-2 rounded-md"
-                >
-                  {item.label.toLowerCase().includes('total') ? (
-                    <Home className="w-4 h-4 text-gray-600" />
-                  ) : (
-                    <Users className="w-4 h-4 text-gray-600" />
-                  )}
-                  <span className="font-medium text-gray-900">{item.value}</span>
-                  <span className="text-sm text-gray-600">{item.label}</span>
-                </div>
-              ))}
-            </>
+      <div className="loan-pipeline-controls">
+        <StatusTabs value={statusTab} onChange={setStatusTab} />
+        <div className="loan-pipeline-controls-right">
+          {hasSelectedLoans ? (
+            <div className="loan-pipeline-selection-actions">
+              <button
+                onClick={handleCancelSelection}
+                className="loan-pipeline-cancel-button"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={() => handleAssignClick(selectedLoanIds)}
+                className="loan-pipeline-assign-button"
+              >
+                ASSIGN LOANS
+              </button>
+            </div>
+          ) : (
+            <CustomizeColumns
+              columns={LOAN_COLUMNS}
+              visibleColumnIds={visibleColumnIds}
+              onChange={setVisibleColumnIds}
+            />
           )}
-        </div>
-        
-        <div className="flex items-center space-x-4">
-          <CustomizeColumns
-            columns={LOAN_COLUMNS}
-            visibleColumnIds={visibleColumnIds}
-            onChange={setVisibleColumnIds}
-          />
         </div>
       </div>
       
-      <div className="flex-1 flex flex-col min-h-0">
+      <div className="loan-pipeline-selection-label-container">
+        {hasSelectedLoans && (
+          <div className="loan-pipeline-selection-label">
+            {selectedLoanIds.length} Loan{selectedLoanIds.length !== 1 ? 's' : ''} Selected
+          </div>
+        )}
+      </div>
+      
+      <div className="loan-pipeline-grid-section">
         <LoansGrid 
           statusTab={statusTab} 
-          onAssignClick={handleAssignClick}
+          onAssignClick={setSelectedLoanIds}
           columns={LOAN_COLUMNS}
           visibleColumnIds={visibleColumnIds}
+          selectedLoanIds={selectedLoanIds}
+          onSelectionChange={setSelectedLoanIds}
         />
       </div>
 
