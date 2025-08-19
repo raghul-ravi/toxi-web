@@ -1,0 +1,49 @@
+/* StatusTabs Component Styles */
+.status-tabs-container {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.status-tabs-list {
+  display: flex;
+  gap: 30px;
+}
+
+.status-tab {
+  padding: 10px 0;
+  color: #666;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  font-weight: 400;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.status-tab:hover {
+  color: #004b85;
+}
+
+.status-tab-active {
+  color: #004b85;
+  border-bottom-color: #004b85;
+}
+
+.status-tab-count {
+  background-color: #e0e0e0;
+  color: #666;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.status-tab-active .status-tab-count {
+  background-color: #004b85;
+  color: white;
+}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { Loan, Processor, AssignLoansRequest } from '../types/types';
 
-const API_BASE_URL = 'http://localhost:5140/api';
+const API_BASE_URL = 'http://localhost:5139/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -16,10 +16,6 @@ export const loansApi = {
     return response.data;
   },
 
-  getKpis: async (): Promise<Record<string, number>> => {
-    const response = await api.get('/pipelineview/kpis');
-    return response.data;
-  },
 
   assignLoans: async (request: AssignLoansRequest): Promise<void> => {
     await api.post('/pipelineview/assign', request);

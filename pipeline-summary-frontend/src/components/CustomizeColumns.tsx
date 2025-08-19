@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, Search, List } from 'lucide-react';
-import styles from '../styles/components/CustomizeColumns.module.css';
+import { ChevronDown, Search, GripVertical, Check } from 'lucide-react';
+import '../styles/components/CustomizeColumns.css';
 import type { ColumnDef } from '../types/types';
 
 interface CustomizeColumnsProps {
@@ -43,69 +43,85 @@ export const CustomizeColumns = ({
   }, []);
 
   return (
-    <div className={styles.container} ref={dropdownRef}>
+    <div className="customize-columns-container" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={styles.triggerButton}
+        className="customize-columns-trigger-button"
       >
         <span>Customize Columns</span>
-        <ChevronDown className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ''}`} />
+        <ChevronDown className={`customize-columns-chevron ${isOpen ? 'customize-columns-chevron-open' : ''}`} />
       </button>
 
       {isOpen && (
-        <div className={styles.dropdown}>
+        <div className="customize-columns-dropdown">
           {/* Header */}
-          <div className={styles.header}>
-            <h3 className={styles.headerTitle}>Select Columns</h3>
+          <div className="customize-columns-header">
+            <h3 className="customize-columns-header-title">Select Columns</h3>
             
             {/* Search */}
-            <div className={styles.searchContainer}>
-              <Search className={styles.searchIcon} />
+            <div className="customize-columns-search-container">
+              <Search className="customize-columns-search-icon" />
               <input
                 type="text"
                 placeholder="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className={styles.searchInput}
+                className="customize-columns-search-input"
               />
             </div>
           </div>
           
           {/* Column List */}
-          <div className={styles.columnList}>
-            {filteredColumns.length === 0 ? (
-              <div className={styles.emptyState}>
-                No columns found matching "{searchTerm}"
-              </div>
-            ) : (
-              filteredColumns.map((column) => (
-                <label
-                  key={column.id}
-                  className={styles.columnItem}
-                >
-                  <List className={styles.columnIcon} />
-                  <div className={styles.columnLabel}>
-                    <div className={styles.columnLabelText}>{column.label}</div>
-                  </div>
-                  <input
-                    type="checkbox"
-                    checked={visibleColumnIds.includes(column.id)}
-                    onChange={() => handleToggle(column.id)}
-                    className={styles.columnCheckbox}
-                  />
-                </label>
-              ))
-            )}
+          <div className="customize-columns-body">
+            <div className="customize-columns-column-list">
+              {filteredColumns.length === 0 ? (
+                <div className="customize-columns-empty-state">
+                  No columns found matching "{searchTerm}"
+                </div>
+              ) : (
+                filteredColumns.map((column) => {
+                  const isSelected = visibleColumnIds.includes(column.id);
+                  return (
+                    <div
+                      key={column.id}
+                      onClick={() => handleToggle(column.id)}
+                      className={`customize-columns-column-item ${
+                        isSelected ? 'customize-columns-column-item-selected' : ''
+                      }`}
+                    >
+                      <GripVertical 
+                        className={`customize-columns-column-icon ${
+                          isSelected ? 'customize-columns-column-icon-selected' : ''
+                        }`}
+                      />
+                      <div className="customize-columns-column-label">
+                        <div className="customize-columns-column-label-text">{column.label}</div>
+                      </div>
+                      {isSelected && (
+                        <Check className="customize-columns-check-icon" />
+                      )}
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => handleToggle(column.id)}
+                        className="customize-columns-column-checkbox"
+                        tabIndex={-1}
+                      />
+                    </div>
+                  );
+                })
+              )}
+            </div>
           </div>
           
           {/* Footer */}
-          <div className={styles.footer}>
+          <div className="customize-columns-footer">
             <button
               onClick={() => {
                 setIsOpen(false);
                 setSearchTerm('');
               }}
-              className={styles.doneButton}
+              className="customize-columns-done-button"
             >
               Done
             </button>

@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import { X, CheckCircle, XCircle } from 'lucide-react';
 import { ToastContext } from '../context/ToastContext';
+import '../styles/components/ToastHost.css';
 
 interface Toast {
   id: string;
@@ -33,27 +34,25 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
       {children}
       
       {/* Toast Container */}
-      <div className="fixed top-4 right-4 space-y-2 z-50">
+      <div className="toast-container">
         {toasts.map(toast => (
           <div
             key={toast.id}
-            className={`flex items-center space-x-3 px-4 py-3 rounded-lg shadow-lg max-w-md ${
-              toast.type === 'success'
-                ? 'bg-green-50 border border-green-200 text-green-800'
-                : 'bg-red-50 border border-red-200 text-red-800'
+            className={`toast ${
+              toast.type === 'success' ? 'toast-success' : 'toast-error'
             }`}
           >
             {toast.type === 'success' ? (
-              <CheckCircle className="w-5 h-5 text-green-600" />
+              <CheckCircle className="toast-icon" />
             ) : (
-              <XCircle className="w-5 h-5 text-red-600" />
+              <XCircle className="toast-icon" />
             )}
-            <span className="text-sm font-medium flex-1">{toast.message}</span>
+            <span className="toast-content">{toast.message}</span>
             <button
               onClick={() => removeToast(toast.id)}
-              className="text-gray-400 hover:text-gray-600"
+              className="toast-close-button"
             >
-              <X className="w-4 h-4" />
+              <X className="toast-close-icon" />
             </button>
           </div>
         ))}

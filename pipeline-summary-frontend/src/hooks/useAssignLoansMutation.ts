@@ -8,9 +8,8 @@ export const useAssignLoansMutation = () => {
   return useMutation({
     mutationFn: (request: AssignLoansRequest) => loansApi.assignLoans(request),
     onSuccess: () => {
-      // Invalidate and refetch loans and KPIs
+      // Invalidate and refetch loans
       queryClient.invalidateQueries({ queryKey: ['loans'] });
-      queryClient.invalidateQueries({ queryKey: ['kpis'] });
     },
   });
 };
